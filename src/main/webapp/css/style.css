@@ -1,0 +1,248 @@
+/* ============================================================
+   校园实验设备借用系统 全站样式
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+    font-size: 14px;
+    min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ---------- 顶部导航 ---------- */
+.topbar {
+    background: linear-gradient(90deg, #1e293b, #312e81);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, .25);
+    position: sticky; top: 0; z-index: 100;
+}
+.topbar-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 16px;
+    height: 56px; display: flex; align-items: center; gap: 28px;
+}
+.brand { font-size: 16px; font-weight: 700; white-space: nowrap; }
+.nav { display: flex; gap: 4px; flex: 1; }
+.nav-link {
+    padding: 6px 14px; border-radius: 8px; color: #cbd5e1;
+    font-size: 14px; transition: all .15s;
+}
+.nav-link:hover { background: rgba(255,255,255,.12); color: #fff; }
+.nav-badge {
+    display: inline-block; min-width: 18px; padding: 1px 6px;
+    background: #ef4444; color: #fff; border-radius: 999px;
+    font-size: 12px; text-align: center; font-weight: 700;
+    margin-left: 2px; animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+.user-box { display: flex; align-items: center; gap: 12px; }
+.welcome { color: #e2e8f0; font-size: 13px; }
+.btn-logout {
+    font-size: 13px; color: #cbd5e1; border: 1px solid rgba(255,255,255,.3);
+    padding: 4px 12px; border-radius: 8px; transition: all .15s;
+}
+.btn-logout:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+/* ---------- 布局 ---------- */
+.container { max-width: 1100px; margin: 24px auto 0; padding: 0 16px 40px; }
+.container-narrow { max-width: 640px; }
+.page-title {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px;
+}
+.page-title h1 { font-size: 22px; font-weight: 700; }
+.footer {
+    text-align: center; color: #94a3b8; font-size: 12px;
+    padding: 20px 0 30px;
+}
+
+/* ---------- 统计卡片 ---------- */
+.stat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px;
+}
+.stat-card {
+    background: #fff; border-radius: 12px; padding: 16px 18px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .08);
+}
+.stat-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.stat-num { font-size: 24px; font-weight: 800; line-height: 1.1; }
+.stat-label { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+/* ---------- 面板 ---------- */
+.panel {
+    background: #fff; border-radius: 12px; padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .08); margin-bottom: 18px;
+}
+.panel-danger { border-top: 3px solid #ef4444; }
+.panel-warn { border-top: 3px solid #f59e0b; }
+.panel-head { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+
+/* ---------- 表格 ---------- */
+.table { width: 100%; border-collapse: collapse; }
+.table th {
+    text-align: left; font-size: 12px; color: #64748b; font-weight: 600;
+    background: #f8fafc; padding: 9px 10px;
+    border-bottom: 1px solid #e2e8f0; white-space: nowrap;
+}
+.table td { padding: 10px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: #f8fafc; }
+.ops { white-space: nowrap; }
+.text-muted { color: #94a3b8; font-size: 12px; }
+.text-danger { color: #dc2626; }
+
+/* ---------- 徽章 ---------- */
+.badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.b-green { background: #dcfce7; color: #16a34a; }
+.b-blue { background: #dbeafe; color: #2563eb; }
+.b-amber { background: #fef3c7; color: #d97706; }
+.b-gray { background: #f3f4f6; color: #6b7280; }
+.b-red { background: #fee2e2; color: #dc2626; }
+.b-orange { background: #ffedd5; color: #ea580c; }
+
+/* ---------- 按钮 ---------- */
+.btn {
+    display: inline-block; padding: 8px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; border: 1px solid transparent;
+    cursor: pointer; transition: all .15s; line-height: 1.4;
+}
+.btn-sm { padding: 4px 10px; font-size: 12px; border-radius: 6px; }
+.btn-block { display: block; width: 100%; padding: 11px; font-size: 15px; }
+.btn-primary { background: #4f46e5; color: #fff; }
+.btn-primary:hover { background: #4338ca; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-success:hover { background: #15803d; }
+.btn-danger { background: #fee2e2; color: #dc2626; }
+.btn-danger:hover { background: #fecaca; }
+.btn-outline {
+    background: #fff; color: #4f46e5; border-color: #c7d2fe;
+}
+.btn-outline:hover { background: #eef2ff; }
+.btn-text { color: #64748b; }
+.btn-text:hover { color: #0f172a; }
+
+/* ---------- 表单 ---------- */
+.form-card {
+    background: #fff; border-radius: 12px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .08);
+}
+.form-row { margin-bottom: 16px; }
+.form-row label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: #334155; margin-bottom: 6px;
+}
+.req { color: #dc2626; }
+.input {
+    width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1;
+    border-radius: 8px; font-size: 14px; outline: none;
+    font-family: inherit; background: #fff; transition: border .15s, box-shadow .15s;
+}
+.input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, .12); }
+.input:disabled { background: #f1f5f9; color: #64748b; }
+select.input { height: 38px; }
+textarea.input { resize: vertical; }
+.form-hint { font-size: 12px; color: #94a3b8; margin-top: 5px; }
+.form-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+/* Struts 2 错误信息（s:fielderror / s:actionerror 渲染的 ul.errorMessage） */
+ul.errorMessage, ul.actionMessage { list-style: none; padding: 0; margin: 6px 0 0; }
+ul.errorMessage li {
+    color: #dc2626; font-size: 12px; padding: 2px 0;
+}
+.container > ul.errorMessage {
+    background: #fee2e2; border: 1px solid #fecaca; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 14px;
+}
+.container > ul.errorMessage li { font-size: 13px; padding: 2px 0; }
+
+/* ---------- 提示条 / 工具栏 / 页签 ---------- */
+.alert { padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-size: 13px; }
+.alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
+.toolbar {
+    display: flex; gap: 10px; align-items: center;
+    background: #fff; border-radius: 12px; padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .08); margin-bottom: 16px;
+}
+.toolbar .input { width: 320px; }
+.toolbar select.input { width: 140px; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.tab {
+    padding: 7px 16px; border-radius: 999px; font-size: 13px;
+    background: #fff; color: #475569; border: 1px solid #e2e8f0;
+    transition: all .15s;
+}
+.tab:hover { border-color: #c7d2fe; color: #4f46e5; }
+.tab.active { background: #4f46e5; color: #fff; border-color: #4f46e5; font-weight: 600; }
+
+/* ---------- 空状态 / 消息页 ---------- */
+.empty-state {
+    text-align: center; color: #94a3b8; padding: 26px 10px; font-size: 13px;
+}
+.empty-state.ok { color: #16a34a; }
+.empty-state a { color: #4f46e5; }
+
+.msg-card {
+    background: #fff; border-radius: 12px; padding: 40px 30px;
+    text-align: center; box-shadow: 0 1px 3px rgba(15, 23, 42, .08);
+}
+.msg-icon { font-size: 44px; margin-bottom: 10px; }
+.msg-card h2 { font-size: 18px; margin-bottom: 6px; }
+.msg-card ul.errorMessage { display: inline-block; margin: 4px 0 10px; }
+.msg-card ul.errorMessage li { font-size: 14px; padding: 3px 0; }
+
+/* ---------- 借用表单设备摘要 ---------- */
+.equip-brief .brief-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.brief-grid > div {
+    background: #f8fafc; border-radius: 8px; padding: 10px 12px; font-size: 13px;
+}
+.brief-label { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 3px; }
+
+/* ---------- 登录页 ---------- */
+.login-body {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1e293b 0%, #312e81 55%, #4f46e5 100%);
+    padding: 20px;
+}
+.login-card {
+    background: #fff; border-radius: 16px; padding: 36px 34px;
+    width: 380px; box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+}
+.login-logo { font-size: 40px; text-align: center; margin-bottom: 8px; }
+.login-card h1 { font-size: 19px; text-align: center; margin-bottom: 4px; }
+.login-sub { text-align: center; color: #94a3b8; font-size: 12px; margin-bottom: 20px; }
+.login-card label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: #334155; margin: 12px 0 6px;
+}
+.login-card .input { margin-bottom: 4px; }
+.login-card form .btn { margin-top: 18px; }
+.login-tip {
+    margin-top: 18px; padding: 10px 12px; background: #f8fafc;
+    border-radius: 8px; font-size: 12px; color: #64748b; line-height: 1.8;
+}
+.login-card ul.errorMessage li { padding: 4px 0; }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 800px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .topbar-inner { gap: 12px; }
+    .brand { font-size: 14px; }
+    .toolbar .input { width: 100%; }
+    .toolbar { flex-wrap: wrap; }
+}

@@ -1,0 +1,19 @@
+# 构建产物
+target/
+
+# IDE 配置
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# 日志与临时文件
+*.log
+logs/
+*.tmp
+.DS_Store
+Thumbs.db

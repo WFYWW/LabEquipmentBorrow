@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+    <!-- 开发模式：改动配置自动重载、报错信息更详细（生产环境应设为false） -->
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 表单提交到 Action 的字符编码 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+
+    <!-- ============ 公共包：登录/注销（无需登录即可访问） ============ -->
+    <package name="public" namespace="/" extends="struts-default">
+        <action name="login" class="com.labequip.action.LoginAction">
+            <result name="ok" type="redirect">home.action</result>
+            <result name="fail">/login.jsp</result>
+            <result name="input">/login.jsp</result>
+        </action>
+        <action name="logout" class="com.labequip.action.LoginAction" method="logout">
+            <result name="ok" type="redirect">login.jsp</result>
+        </action>
+    </package>
+
+    <!-- ============ 业务包：受登录拦截器保护 ============ -->
+    <package name="app" namespace="/" extends="struts-default">
+
+        <interceptors>
+            <!-- 登录校验拦截器：未登录返回"login"，跳转到全局结果 -->
+            <interceptor name="loginCheck" class="com.labequip.interceptor.LoginInterceptor" />
+            <interceptor-stack name="appStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="loginCheck" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="appStack" />
+
+        <global-results>
+            <result name="login" type="redirect">/login.jsp</result>
+            <!-- 拦截性提示页（如：逾期禁止借用） -->
+            <result name="deny">/pages/message.jsp</result>
+        </global-results>
+
+        <!-- Struts 2.5 默认开启严格方法调用(SMI)：通配符 method={1} 命中的方法必须在白名单内
+             （注意：按 DTD 要求，此标签必须位于 global-results 之后、action 之前） -->
+        <global-allowed-methods>execute,input,back,cancel,list,form,save,delete,create,doReturn</global-allowed-methods>
+
+        <!-- 首页仪表盘（含逾期提醒） -->
+        <action name="home" class="com.labequip.action.DashboardAction">
+            <result>/pages/dashboard.jsp</result>
+        </action>
+
+        <!-- 设备管理：equipment-list / equipment-form / equipment-save / equipment-delete -->
+        <action name="equipment-*" class="com.labequip.action.EquipmentAction" method="{1}">
+            <result name="list">/pages/equipment-list.jsp</result>
+            <result name="form">/pages/equipment-form.jsp</result>
+            <result name="input">/pages/equipment-form.jsp</result>
+            <result name="success" type="redirectAction">equipment-list</result>
+        </action>
+
+        <!-- 借用与归还：borrow-list / borrow-form / borrow-create / borrow-return
+             归还用显式映射：URL "borrow-return" 经通配符会得到方法名 return（Java保留字），
+             与实际方法名 doReturn 不符，故单独声明（精确匹配优先于通配符） -->
+        <action name="borrow-return" class="com.labequip.action.BorrowAction" method="doReturn">
+            <result name="success" type="redirectAction">borrow-list</result>
+        </action>
+        <action name="borrow-*" class="com.labequip.action.BorrowAction" method="{1}">
+            <result name="list">/pages/borrow-list.jsp</result>
+            <result name="form">/pages/borrow-form.jsp</result>
+            <result name="input">/pages/borrow-form.jsp</result>
+            <result name="success" type="redirectAction">borrow-list</result>
+        </action>
+    </package>
+</struts>
