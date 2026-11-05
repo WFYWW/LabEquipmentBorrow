@@ -19,7 +19,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- Struts 2 核心过滤器（2.5版本使用 StrutsPrepareAndExecuteFilter） -->
+    <!-- Struts 2 核心过滤器（2.5版本使用 StrutsPrepareAndExecuteFilter）
+         dispatcher 必须声明 REQUEST + FORWARD：index.jsp 通过 <jsp:forward> 内部转发到 home.action，
+         若只匹配 REQUEST，欢迎页转发会绕过 Struts，导致访问 http://localhost:8080/labequip/ 直接 404 -->
     <filter>
         <filter-name>struts2</filter-name>
         <filter-class>
@@ -29,6 +31,8 @@
     <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
     <welcome-file-list>
