@@ -260,6 +260,17 @@ ul.errorMessage li {
 }
 .login-card ul.errorMessage li { padding: 4px 0; }
 
+/* ---------- 注册页 ---------- */
+.login-card-wide { width: 420px; }
+.login-card .reg-link {
+    text-align: center; margin-top: 14px; font-size: 13px; color: #64748b;
+}
+.login-card .reg-link a { color: #4f46e5; font-weight: 600; }
+.login-ok {
+    background: #dcfce7; color: #166534; border: 1px solid #bbf7d0;
+    border-radius: 8px; padding: 8px 12px; font-size: 13px; margin-bottom: 6px;
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 800px) {
     .stat-grid { grid-template-columns: repeat(2, 1fr); }

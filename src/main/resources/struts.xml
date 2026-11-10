@@ -22,6 +22,15 @@
         <action name="logout" class="com.labequip.action.LoginAction" method="logout">
             <result name="ok" type="redirect">login.jsp</result>
         </action>
+
+        <!-- 用户注册：register 显示表单 / register-save 提交（成功后带提示回登录页） -->
+        <action name="register" class="com.labequip.action.RegisterAction">
+            <result name="input">/register.jsp</result>
+        </action>
+        <action name="register-save" class="com.labequip.action.RegisterAction" method="register">
+            <result name="input">/register.jsp</result>
+            <result name="success" type="redirect">login.jsp?registered=1</result>
+        </action>
     </package>
 
     <!-- ============ 业务包：受登录拦截器保护 ============ -->

@@ -16,6 +16,10 @@
 
         <s:actionerror/>
 
+        <% if ("1".equals(request.getParameter("registered"))) { %>
+        <div class="login-ok">✅ 注册成功，请使用新账号登录</div>
+        <% } %>
+
         <form action="login.action" method="post">
             <label>用户名</label>
             <input type="text" name="username" class="input" placeholder="请输入用户名" autofocus>
@@ -23,6 +27,10 @@
             <input type="password" name="password" class="input" placeholder="请输入密码">
             <button type="submit" class="btn btn-primary btn-block">登　录</button>
         </form>
+
+        <div class="reg-link">
+            还没有账号？<a href="register.action">立即注册</a>
+        </div>
 
         <div class="login-tip">
             演示账号：<br>
