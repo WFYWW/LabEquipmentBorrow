@@ -20,6 +20,7 @@ public class BorrowRecordDao {
 
     private static final String JOIN_SQL =
             "SELECT r.*, e.name AS equipment_name, e.model AS equipment_model, "
+            + "e.image AS equipment_image, "
             + "u.real_name AS borrower_name, u.student_no AS student_no "
             + "FROM `borrow_record` r "
             + "JOIN `equipment` e ON r.equipment_id = e.id "
@@ -83,21 +84,27 @@ public class BorrowRecordDao {
         }
     }
 
-    /** 全站逾期未还列表（首页"逾期提醒"模块） */
-    public List<BorrowRecord> listOverdue() {
-        String sql = JOIN_SQL
-                + " WHERE r.return_date IS NULL AND r.due_date < CURDATE()"
-                + " ORDER BY r.due_date ASC";
-        return queryList(sql);
+    /** 逾期未还列表（首页"逾期提醒"模块）：userId 为空=全站（管理员），否则只看该用户 */
+    public List<BorrowRecord> listOverdue(Integer userId) {
+        StringBuilder sql = new StringBuilder(JOIN_SQL
+                + " WHERE r.return_date IS NULL AND r.due_date < CURDATE()");
+        if (userId != null) {
+            sql.append(" AND r.user_id=?");
+        }
+        sql.append(" ORDER BY r.due_date ASC");
+        return userId == null ? queryList(sql.toString()) : queryList(sql.toString(), userId);
     }
 
-    /** 全站即将到期列表（withinDays 天内，含今天） */
-    public List<BorrowRecord> listDueSoon(int withinDays) {
-        String sql = JOIN_SQL
+    /** 即将到期列表（withinDays 天内，含今天）：userId 为空=全站（管理员），否则只看该用户 */
+    public List<BorrowRecord> listDueSoon(int withinDays, Integer userId) {
+        StringBuilder sql = new StringBuilder(JOIN_SQL
                 + " WHERE r.return_date IS NULL"
-                + " AND DATEDIFF(r.due_date, CURDATE()) BETWEEN 0 AND " + withinDays
-                + " ORDER BY r.due_date ASC";
-        return queryList(sql);
+                + " AND DATEDIFF(r.due_date, CURDATE()) BETWEEN 0 AND " + withinDays);
+        if (userId != null) {
+            sql.append(" AND r.user_id=?");
+        }
+        sql.append(" ORDER BY r.due_date ASC");
+        return userId == null ? queryList(sql.toString()) : queryList(sql.toString(), userId);
     }
 
     /** 某用户当前在借列表（我的在借） */
@@ -108,13 +115,20 @@ public class BorrowRecordDao {
         return queryList(sql, userId);
     }
 
-    /** 全站逾期数量（导航角标） */
-    public int countOverdue() {
+    /** 逾期数量（导航角标）：userId 为空=全站（管理员），否则只统计该用户 */
+    public int countOverdue(Integer userId) {
         String sql = "SELECT COUNT(*) FROM `borrow_record` WHERE return_date IS NULL AND due_date < CURDATE()";
+        if (userId != null) {
+            sql += " AND user_id=?";
+        }
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            return rs.next() ? rs.getInt(1) : 0;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            if (userId != null) {
+                ps.setInt(1, userId);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getInt(1) : 0;
+            }
         } catch (Exception e) {
             throw new RuntimeException("逾期统计失败：" + e.getMessage(), e);
         }
@@ -280,6 +294,7 @@ public class BorrowRecordDao {
         r.setStatus(rs.getString("status"));
         r.setEquipmentName(rs.getString("equipment_name"));
         r.setEquipmentModel(rs.getString("equipment_model"));
+        r.setEquipmentImage(rs.getString("equipment_image"));
         r.setBorrowerName(rs.getString("borrower_name"));
         r.setStudentNo(rs.getString("student_no"));
         return r;

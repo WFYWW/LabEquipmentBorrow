@@ -17,8 +17,23 @@
         <a href="equipment-list.action" class="btn btn-text">← 返回列表</a>
     </div>
 
-    <s:form action="equipment-save" theme="simple" cssClass="form-card">
+    <s:form action="equipment-save" theme="simple" cssClass="form-card" enctype="multipart/form-data">
         <s:hidden name="equipment.id"/>
+
+        <div class="form-row">
+            <label>设备图片</label>
+            <div class="form-img-preview">
+                <img src="<s:property value='equipment.imageDisplay'/>" alt="设备图片预览">
+            </div>
+            <s:file name="upload" cssClass="input" accept="image/*"/>
+            <div class="form-hint">上传新图（jpg / png / gif / webp，不超过 5MB）；也可从下方预设图选择；两者都留空则保持当前图片</div>
+            <s:fielderror fieldName="upload"/>
+        </div>
+        <div class="form-row">
+            <label>或选择预设图片</label>
+            <s:select name="equipment.image" list="presetImages" headerKey=""
+                      headerValue="— 无图片（显示默认占位图）—" cssClass="input"/>
+        </div>
 
         <div class="form-row">
             <label>设备名称 <span class="req">*</span></label>

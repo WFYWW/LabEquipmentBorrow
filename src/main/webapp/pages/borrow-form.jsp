@@ -20,6 +20,9 @@
     <%-- 设备信息卡片 --%>
     <div class="panel equip-brief">
         <div class="panel-head">🧰 借用设备信息</div>
+        <div class="brief-img">
+            <img src="<s:property value='equipment.imageDisplay'/>" alt="<s:property value='equipment.name'/>">
+        </div>
         <div class="brief-grid">
             <div><span class="brief-label">设备名称</span><strong><s:property value="equipment.name"/></strong></div>
             <div><span class="brief-label">规格型号</span><s:property value="equipment.model"/></div>

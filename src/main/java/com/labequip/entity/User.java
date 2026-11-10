@@ -14,6 +14,7 @@ public class User implements Serializable {
     private String password;    // 密码（课程演示用明文）
     private String realName;    // 真实姓名
     private String studentNo;   // 学号
+    private String role;        // 角色：admin=管理员 / student=学员
     private Timestamp createTime;
 
     public int getId() { return id; }
@@ -30,6 +31,14 @@ public class User implements Serializable {
 
     public String getStudentNo() { return studentNo; }
     public void setStudentNo(String studentNo) { this.studentNo = studentNo; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    /** 是否管理员（数据库固定取值 "admin"，见 user 表注释） */
+    public boolean isAdmin() {
+        return "admin".equals(role);
+    }
 
     public Timestamp getCreateTime() { return createTime; }
     public void setCreateTime(Timestamp createTime) { this.createTime = createTime; }

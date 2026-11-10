@@ -9,6 +9,8 @@
     <constant name="struts.i18n.reload" value="true" />
     <!-- 表单提交到 Action 的字符编码 -->
     <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 设备图片上传上限 5MB（与 EquipmentAction.MAX_IMAGE_SIZE 一致） -->
+    <constant name="struts.multipart.maxSize" value="5242880" />
 
     <!-- ============ 公共包：登录/注销（无需登录即可访问） ============ -->
     <package name="public" namespace="/" extends="struts-default">

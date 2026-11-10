@@ -13,8 +13,10 @@
 
 <div class="container">
     <div class="page-title">
-        <h1>设备管理</h1>
-        <a href="equipment-form.action" class="btn btn-primary">＋ 新增设备</a>
+        <h1><s:if test="isAdmin()">设备管理</s:if><s:else>设备信息</s:else></h1>
+        <s:if test="isAdmin()">
+            <a href="equipment-form.action" class="btn btn-primary">＋ 新增设备</a>
+        </s:if>
     </div>
 
     <s:actionerror/>
@@ -32,12 +34,13 @@
     <div class="panel">
         <table class="table">
             <tr>
-                <th>ID</th><th>设备名称</th><th>规格型号</th><th>存放位置</th>
+                <th>图片</th><th>ID</th><th>设备名称</th><th>规格型号</th><th>存放位置</th>
                 <th>状态</th><th>备注</th><th>录入时间</th><th style="width:210px">操作</th>
             </tr>
             <s:if test="equipmentList != null && !equipmentList.isEmpty()">
                 <s:iterator value="equipmentList">
                     <tr>
+                        <td><img class="equip-thumb" src="<s:property value='imageDisplay'/>" alt="<s:property value='name'/>"></td>
                         <td><s:property value="id"/></td>
                         <td><strong><s:property value="name"/></strong></td>
                         <td><s:property value="model"/></td>
@@ -55,17 +58,19 @@
                                 <a href="borrow-form.action?equipmentId=<s:property value='id'/>"
                                    class="btn btn-sm btn-success">借用</a>
                             </s:if>
-                            <a href="equipment-form.action?equipment.id=<s:property value='id'/>"
-                               class="btn btn-sm btn-outline">编辑</a>
-                            <a href="equipment-delete.action?equipment.id=<s:property value='id'/>"
-                               class="btn btn-sm btn-danger"
-                               onclick="return confirm('确定删除该设备吗？')">删除</a>
+                            <s:if test="isAdmin()">
+                                <a href="equipment-form.action?equipment.id=<s:property value='id'/>"
+                                   class="btn btn-sm btn-outline">编辑</a>
+                                <a href="equipment-delete.action?equipment.id=<s:property value='id'/>"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('确定删除该设备吗？')">删除</a>
+                            </s:if>
                         </td>
                     </tr>
                 </s:iterator>
             </s:if>
             <s:else>
-                <tr><td colspan="8"><div class="empty-state">没有符合条件的设备</div></td></tr>
+                <tr><td colspan="9"><div class="empty-state">没有符合条件的设备</div></td></tr>
             </s:else>
         </table>
     </div>

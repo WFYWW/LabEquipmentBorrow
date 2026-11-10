@@ -18,8 +18,8 @@ public class DashboardAction extends BaseAction {
     private int borrowedCount;      // 借出数量
     private int myActiveCount;      // 我的在借数量
 
-    private List<BorrowRecord> overdueList;   // 全站逾期未还
-    private List<BorrowRecord> dueSoonList;   // 3天内即将到期
+    private List<BorrowRecord> overdueList;   // 逾期未还（管理员=全站 / 学员=自己的）
+    private List<BorrowRecord> dueSoonList;   // 3天内即将到期（管理员=全站 / 学员=自己的）
     private List<BorrowRecord> myRecords;     // 我的在借
 
     @Override
@@ -32,8 +32,10 @@ public class DashboardAction extends BaseAction {
         borrowedCount = equipmentDao.countByStatus("借出");
         myActiveCount = recordDao.countActiveByUser(getLoginUser().getId());
 
-        overdueList = recordDao.listOverdue();
-        dueSoonList = recordDao.listDueSoon(3);
+        // 逾期/即将到期：管理员看全站，学员只看自己的（借用记录权限一致）
+        Integer uid = isAdmin() ? null : getLoginUser().getId();
+        overdueList = recordDao.listOverdue(uid);
+        dueSoonList = recordDao.listDueSoon(3, uid);
         myRecords = recordDao.listActiveByUser(getLoginUser().getId());
         return SUCCESS;
     }

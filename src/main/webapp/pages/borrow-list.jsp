@@ -25,9 +25,15 @@
             <s:param name="filter" value="'returned'"/>已归还</s:a>
         <s:a action="borrow-list" cssClass="%{filter == 'overdue' ? 'tab active' : 'tab'}">
             <s:param name="filter" value="'overdue'"/>⚠️ 逾期</s:a>
-        <s:a action="borrow-list" cssClass="%{mine ? 'tab active' : 'tab'}">
-            <s:param name="mine" value="true"/>我的借用</s:a>
+        <s:if test="isAdmin()">
+            <s:a action="borrow-list" cssClass="%{mine ? 'tab active' : 'tab'}">
+                <s:param name="mine" value="true"/>我的借用</s:a>
+        </s:if>
     </div>
+
+    <s:if test="!isAdmin()">
+        <div class="alert alert-info">💡 这里显示的是您本人的借用记录；全站记录仅管理员可见。</div>
+    </s:if>
 
     <div class="panel">
         <table class="table">
@@ -39,6 +45,7 @@
                 <s:iterator value="recordList">
                     <tr>
                         <td>
+                            <img class="thumb-xs" src="<s:property value='equipmentImageDisplay'/>" alt="<s:property value='equipmentName'/>">
                             <strong><s:property value="equipmentName"/></strong>
                             <span class="text-muted">（<s:property value="equipmentModel"/>）</span>
                         </td>

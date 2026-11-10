@@ -42,7 +42,7 @@
 
     <%-- 逾期提醒（红色面板） --%>
     <div class="panel panel-danger">
-        <div class="panel-head">🚨 逾期提醒</div>
+        <div class="panel-head">🚨 <s:if test="isAdmin()">逾期提醒（全站）</s:if><s:else>我的逾期提醒</s:else></div>
         <s:if test="overdueList != null && !overdueList.isEmpty()">
             <table class="table">
                 <tr><th>设备</th><th>借用人</th><th>学号</th><th>应还日期</th><th>逾期天数</th><th>操作</th></tr>
@@ -65,7 +65,7 @@
 
     <%-- 即将到期（黄色面板） --%>
     <div class="panel panel-warn">
-        <div class="panel-head">⏰ 3 天内到期</div>
+        <div class="panel-head">⏰ <s:if test="isAdmin()">3 天内到期（全站）</s:if><s:else>我的 3 天内到期</s:else></div>
         <s:if test="dueSoonList != null && !dueSoonList.isEmpty()">
             <table class="table">
                 <tr><th>设备</th><th>借用人</th><th>应还日期</th><th>剩余</th></tr>

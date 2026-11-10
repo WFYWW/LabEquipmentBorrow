@@ -57,6 +57,7 @@ public class UserDao {
         u.setPassword(rs.getString("password"));
         u.setRealName(rs.getString("real_name"));
         u.setStudentNo(rs.getString("student_no"));
+        u.setRole(rs.getString("role"));
         u.setCreateTime(rs.getTimestamp("create_time"));
         return u;
     }

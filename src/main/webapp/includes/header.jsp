@@ -13,7 +13,10 @@
             </a>
         </nav>
         <div class="user-box">
-            <span class="welcome">👤 <s:property value="loginUser.realName"/></span>
+            <span class="welcome">👤 <s:property value="loginUser.realName"/>
+                <s:if test="isAdmin()"><span class="badge b-amber">管理员</span></s:if>
+                <s:else><span class="badge b-blue">学员</span></s:else>
+            </span>
             <a href="logout.action" class="btn btn-logout">退出登录</a>
         </div>
     </div>

@@ -75,7 +75,7 @@ public class EquipmentDao {
 
     /** 新增设备，返回自增ID */
     public int insert(Equipment e) {
-        String sql = "INSERT INTO `equipment`(name,model,location,status,description) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO `equipment`(name,model,location,status,description,image) VALUES(?,?,?,?,?,?)";
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -94,14 +94,14 @@ public class EquipmentDao {
 
     /** 更新设备，返回受影响行数 */
     public int update(Equipment e) {
-        String sql = "UPDATE `equipment` SET name=?,model=?,location=?,status=?,description=? WHERE id=?";
+        String sql = "UPDATE `equipment` SET name=?,model=?,location=?,status=?,description=?,image=? WHERE id=?";
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = DBUtil.getConnection();
             ps = conn.prepareStatement(sql);
             fill(ps, e);
-            ps.setInt(6, e.getId());
+            ps.setInt(7, e.getId());
             return ps.executeUpdate();
         } catch (Exception ex) {
             throw new RuntimeException("设备更新失败：" + ex.getMessage(), ex);
@@ -170,6 +170,7 @@ public class EquipmentDao {
         ps.setString(3, e.getLocation());
         ps.setString(4, e.getStatus() == null ? "在库" : e.getStatus());
         ps.setString(5, e.getDescription());
+        ps.setString(6, e.getImage() == null ? "" : e.getImage().trim());
     }
 
     private Equipment map(ResultSet rs) throws SQLException {
@@ -180,6 +181,7 @@ public class EquipmentDao {
         e.setLocation(rs.getString("location"));
         e.setStatus(rs.getString("status"));
         e.setDescription(rs.getString("description"));
+        e.setImage(rs.getString("image"));
         e.setCreateTime(rs.getTimestamp("create_time"));
         return e;
     }

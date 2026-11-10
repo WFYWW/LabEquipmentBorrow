@@ -13,6 +13,9 @@ import java.util.List;
  * 设备借用与归还
  * URL 映射（struts.xml 通配符）：borrow-list / borrow-form / borrow-create / borrow-return
  *
+ * 权限：学员只能查看自己的借用记录，管理员可查看全部（并可通过"我的借用"页签切换）；
+ * 学员只能归还自己借的设备，管理员可代还任意记录。
+ *
  * 核心业务规则：
  * 1. 只能借用状态为"在库"的设备
  * 2. 有逾期未还记录的用户禁止再次借用
@@ -30,9 +33,9 @@ public class BorrowAction extends BaseAction {
     private Equipment equipment;    // 借用表单展示的设备
     private List<BorrowRecord> recordList;
 
-    /** 借用记录列表（支持状态筛选、只看我的） */
+    /** 借用记录列表（支持状态筛选）：学员强制只看自己，管理员可看全部或切"我的借用" */
     public String list() {
-        Integer uid = mine ? getLoginUser().getId() : null;
+        Integer uid = (!isAdmin() || mine) ? getLoginUser().getId() : null;
         recordList = new BorrowRecordDao().list(filter, uid);
         return "list";
     }
@@ -95,9 +98,18 @@ public class BorrowAction extends BaseAction {
         return SUCCESS;   // redirectAction -> borrow-list
     }
 
-    /** 归还设备（DAO 事务），之后回到借用记录列表 */
+    /** 归还设备（DAO 事务）。学员只能归还自己的记录，管理员可代还 */
     public String doReturn() {
         if (recordId != null) {
+            BorrowRecord rec = new BorrowRecordDao().findById(recordId);
+            if (rec == null) {
+                addActionError("借用记录不存在或已归还！");
+                return "deny";
+            }
+            if (!isAdmin() && rec.getUserId() != getLoginUser().getId()) {
+                addActionError("只能归还自己借用的设备！");
+                return "deny";
+            }
             new BorrowRecordDao().doReturn(recordId);
         }
         return SUCCESS;   // redirectAction -> borrow-list

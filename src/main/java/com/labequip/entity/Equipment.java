@@ -16,6 +16,7 @@ public class Equipment implements Serializable {
     private String location;     // 存放位置
     private String status;       // 设备状态
     private String description;  // 备注说明
+    private String image;        // 设备图片（webapp 下相对路径，如 images/equip/xxx.jpg）
     private Timestamp createTime;
 
     public int getId() { return id; }
@@ -35,6 +36,15 @@ public class Equipment implements Serializable {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
+
+    /** 页面展示用：未设置图片时返回默认占位图 */
+    public String getImageDisplay() {
+        return (image == null || image.trim().isEmpty())
+                ? "images/equip/default.jpg" : image.trim();
+    }
 
     public Timestamp getCreateTime() { return createTime; }
     public void setCreateTime(Timestamp createTime) { this.createTime = createTime; }

@@ -25,6 +25,7 @@ public class BorrowRecord implements Serializable {
     // ---- 以下为关联查询的展示字段（非表字段） ----
     private String equipmentName;   // 设备名称
     private String equipmentModel;  // 设备型号
+    private String equipmentImage;  // 设备图片路径（关联查询）
     private String borrowerName;    // 借用人姓名
     private String studentNo;       // 借用人学号
 
@@ -88,6 +89,15 @@ public class BorrowRecord implements Serializable {
 
     public String getEquipmentModel() { return equipmentModel; }
     public void setEquipmentModel(String equipmentModel) { this.equipmentModel = equipmentModel; }
+
+    public String getEquipmentImage() { return equipmentImage; }
+    public void setEquipmentImage(String equipmentImage) { this.equipmentImage = equipmentImage; }
+
+    /** 页面展示用：未设置图片时返回默认占位图 */
+    public String getEquipmentImageDisplay() {
+        return (equipmentImage == null || equipmentImage.trim().isEmpty())
+                ? "images/equip/default.jpg" : equipmentImage.trim();
+    }
 
     public String getBorrowerName() { return borrowerName; }
     public void setBorrowerName(String borrowerName) { this.borrowerName = borrowerName; }

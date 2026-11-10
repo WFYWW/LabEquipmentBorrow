@@ -22,10 +22,17 @@ public class BaseAction extends ActionSupport {
         return (User) request.getSession().getAttribute("loginUser");
     }
 
-    /** 全站逾期未还数量（导航栏红点角标） */
+    /** 当前登录用户是否管理员（JSP 里可用 s:if test="isAdmin()" 调用） */
+    public boolean isAdmin() {
+        User u = getLoginUser();
+        return u != null && u.isAdmin();
+    }
+
+    /** 逾期未还数量（导航栏红点角标）：管理员统计全站，学员只统计自己的 */
     public int getOverdueCount() {
         if (overdueCount == null) {
-            overdueCount = new BorrowRecordDao().countOverdue();
+            Integer uid = isAdmin() ? null : getLoginUser().getId();
+            overdueCount = new BorrowRecordDao().countOverdue(uid);
         }
         return overdueCount;
     }
