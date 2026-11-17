@@ -11,12 +11,17 @@ import java.sql.Statement;
  */
 public class DBUtil {
 
-    private static final String URL =
+    /**
+     * 数据库连接配置（v1.2 部署加固）：
+     * 优先读取环境变量（LABEQUIP_DB_URL / LABEQUIP_DB_USER / LABEQUIP_DB_PASSWORD），
+     * 未设置时回退到本地开发默认值，部署环境无需修改源码即可替换数据库地址与口令。
+     */
+    private static final String URL = System.getenv().getOrDefault("LABEQUIP_DB_URL",
             "jdbc:mysql://localhost:3306/lab_equip"
             + "?useSSL=false&allowPublicKeyRetrieval=true"
-            + "&characterEncoding=utf8&serverTimezone=Asia/Shanghai";
-    private static final String USER = "root";
-    private static final String PASSWORD = "123456";
+            + "&characterEncoding=utf8&serverTimezone=Asia/Shanghai");
+    private static final String USER = System.getenv().getOrDefault("LABEQUIP_DB_USER", "root");
+    private static final String PASSWORD = System.getenv().getOrDefault("LABEQUIP_DB_PASSWORD", "123456");
 
     static {
         try {
