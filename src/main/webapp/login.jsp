@@ -16,9 +16,9 @@
 
         <s:actionerror/>
 
-        <% if ("1".equals(request.getParameter("registered"))) { %>
+        <s:if test='#parameters.registered != null and #parameters.registered[0] == "1"'>
         <div class="login-ok">✅ 注册成功，请使用新账号登录</div>
-        <% } %>
+        </s:if>
 
         <form action="login.action" method="post">
             <label>用户名</label>
