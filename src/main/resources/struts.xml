@@ -11,6 +11,10 @@
     <constant name="struts.i18n.encoding" value="UTF-8" />
     <!-- 设备图片上传上限 5MB（与 EquipmentAction.MAX_IMAGE_SIZE 一致） -->
     <constant name="struts.multipart.maxSize" value="5242880" />
+    <!-- 实验一/实验七新增的原生 Servlet 端点（/hello、/health）：
+         Struts2 过滤器映射 /* 会把无扩展名请求当作 Action 名处理，需显式放行；
+         excludePattern 为正则全串匹配，请求 URI 含 context path，故用 .* 前缀 -->
+    <constant name="struts.action.excludePattern" value=".*/hello,.*/health" />
 
     <!-- ============ 公共包：登录/注销（无需登录即可访问） ============ -->
     <package name="public" namespace="/" extends="struts-default">
