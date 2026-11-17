@@ -50,6 +50,15 @@ mvn -DskipTests package        # 产物 target/labequip.war，访问路径 /labe
 - 本机调试：IDEA 配置 Tomcat 9（部署 context `/labequip`）；
 - 服务器部署：把 `labequip.war` 放入 Tomcat `webapps/`（Ubuntu 虚拟机为 `/opt/tomcat/webapps/`）。
 
+## 配对部署验证
+
+> 课程实验八要求小节：记录本项目被搭档在其环境中独立部署的证据。
+
+- 搭档：【搭档姓名】
+- 部署环境：【如：Windows 11 / Ubuntu 24.04 + Tomcat 9.0.1xx + MySQL 8】
+- 部署结果：【成功 / 部分成功 / 未成功】
+- 证据：【搭档仓库中的部署记录 / issue 链接 / 截图】
+
 ## 目录速览
 
 ```
