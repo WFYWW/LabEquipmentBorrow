@@ -54,10 +54,10 @@ mvn -DskipTests package        # 产物 target/labequip.war，访问路径 /labe
 
 > 课程实验八要求小节：记录本项目被搭档在其环境中独立部署的证据。
 
-- 搭档：【搭档姓名】
-- 部署环境：【如：Windows 11 / Ubuntu 24.04 + Tomcat 9.0.1xx + MySQL 8】
-- 部署结果：【成功 / 部分成功 / 未成功】
-- 证据：【搭档仓库中的部署记录 / issue 链接 / 截图】
+- 搭档：chenlumina（GitHub 昵称 cheerchen）
+- 部署环境：Windows 11 + Tomcat 9 + MySQL（搭档本机独立实例）
+- 部署结果：成功
+- 证据：搭档提供的部署成功截图（见本人实验七报告粘贴区）与双方互认；搭档仓库 README「配对部署验证」小节亦记录了我方对其 music-web 项目的独立部署，双向互认。
 
 ## 目录速览
 
